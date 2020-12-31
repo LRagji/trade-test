@@ -1,0 +1,24 @@
+{
+  "name": "trade-test",
+  "version": "1.0.0",
+  "description": "Assumptions: 1. Updates to any existing trades will not be supported. 2. Out of time sync trades is not supported, every transaction will have a timestamp greater than previous. 3. Blank windows can exists but are not nessecary to be computed, correct bar number should be set for the window before and after the gap.(If really necessary publishers can do gap filling by generating empty bar windows) 4. Aggregation of volume is done by Summation operator.",
+  "main": "reader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LRagji/trade-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LRagji/trade-test/issues"
+  },
+  "homepage": "https://github.com/LRagji/trade-test#readme",
+  "dependencies": {
+    "ioredis": "^4.19.4",
+    "json-bigint": "^1.0.0",
+    "readline": "^1.3.0"
+  }
+}

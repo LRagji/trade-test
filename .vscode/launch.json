@@ -1,0 +1,44 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "S-2-Listner",
+            "program": "${workspaceFolder}/solution-2/listner.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node" 
+        },
+        {
+            "name": "S-2-Reader",
+            "program": "${workspaceFolder}/solution-2/reader.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
+            "name": "S-3-Listner",
+            "program": "${workspaceFolder}/solution-3/listner.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node" 
+        },
+        {
+            "name": "S-3-Reader",
+            "program": "${workspaceFolder}/solution-3/reader.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        }
+    ]
+}
