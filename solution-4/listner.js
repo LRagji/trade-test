@@ -14,6 +14,8 @@ const debounceMessagesCount = 1000;
 async function listen() {
     const consumerGroup = await broker.joinConsumerGroup(consumerGroupName);
     await consumerGroup.subscribe(consumerName, processNotifications, debounceInterval, debounceMessagesCount);
+    //NON-PROD Performance Monitoring
+    setInterval(() => { redisClient.xlen(streamPublishKey, (err, data) => console.log("Pending Trades:" + data)) }, 10000)
 }
 
 async function processNotifications(payload) {
