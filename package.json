@@ -4,7 +4,9 @@
   "description": "Assumptions: 1. Updates to any existing trades will not be supported. 2. Out of time sync trades is not supported, every transaction will have a timestamp greater than previous. 3. Blank windows can exists but are not nessecary to be computed, correct bar number should be set for the window before and after the gap.(If really necessary publishers can do gap filling by generating empty bar windows) 4. Aggregation of volume is done by Summation operator.",
   "main": "reader.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "listner": "node ./solution-4/listner.js",
+    "reader": "node ./solution-4/reader.js"
   },
   "repository": {
     "type": "git",
