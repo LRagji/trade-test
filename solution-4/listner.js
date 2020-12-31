@@ -8,19 +8,21 @@ const streamPublishKey = 'SINK';
 const consumerGroupName = 'GRP1';
 const consumerName = 'CON-' + Date.now();
 const broker = new brokerType(redisClient, streamPublishKey);
+const debounceInterval = 2000;
+const debounceMessagesCount = 1000;
 
 async function listen() {
     const consumerGroup = await broker.joinConsumerGroup(consumerGroupName);
-    await consumerGroup.subscribe(consumerName, processNotifications, 2000, 1000);
+    await consumerGroup.subscribe(consumerName, processNotifications, debounceInterval, debounceMessagesCount);
 }
 
 async function processNotifications(payload) {
-    const processedCache = new Set();
+    const debounceCache = new Set();
     for (let index = 0; index < payload.length; index++) {
         try {
             const element = payload[index];
             const barKey = element.payload.UPDATE;
-            if (!processedCache.has(barKey)) {
+            if (!debounceCache.has(barKey)) {
                 const symbol = barKey.split('-')[0];
                 const barNumber = BigInt(barKey.split('-')[1]);
                 const openKey = `${barKey}-O`;
@@ -43,8 +45,9 @@ async function processNotifications(payload) {
                     "symbol": symbol
                 };
                 sinkDataToFile(bar);
+                debounceCache.add(barKey);
             }
-            await element.markAsRead(); //Payload is marked as delivered or Acked also optionaly the message can be dropped.
+            await element.markAsRead(true); //Payload is marked as delivered or Acked also optionaly the message can be dropped.
         }
         catch (exception) {
             console.error(exception);

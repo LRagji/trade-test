@@ -8,9 +8,8 @@ const redisClient = new redisType(defaultRedisConnectionString);
 const JSONBigIntNativeParser = require('json-bigint')({ useNativeBigInt: true });
 const barWidth = 15000000000n;
 const barNumberStartPoint = 1n;
-const dataHoldingTime = (barWidth / (1000000000n)) * 3n;
+const dataHoldingTime = (barWidth / (1000000000n)) * 100n;
 const streamPublishKey = 'SINK';
-const streamLength = 10000;
 
 
 async function getEpoch(trade) {
@@ -42,11 +41,11 @@ async function updateRedis(barNumber, trade) {
         .zremrangebyrank(rangeKey, 1, -2)
         .set(closeKey, trade.P)
         .incrbyfloat(volumeKey, trade.P)
-        // .expire(openKey, dataHoldingTime)
-        // .expire(rangeKey, dataHoldingTime)
-        // .expire(closeKey, dataHoldingTime)
-        // .expire(volumeKey, dataHoldingTime)
-        .xadd(streamPublishKey, 'MAXLEN', '~', streamLength, '*', 'UPDATE', barKey)
+        .expire(openKey, dataHoldingTime)
+        .expire(rangeKey, dataHoldingTime)
+        .expire(closeKey, dataHoldingTime)
+        .expire(volumeKey, dataHoldingTime)
+        .xadd(streamPublishKey, '*', 'UPDATE', barKey)
         .exec();
 }
 
@@ -92,7 +91,7 @@ const processTradeFiles = async (filePath) => {
 }
 
 console.time("Processing");
-processTradeFiles(path.join(__dirname, '/../test/test.json'))
+processTradeFiles(path.join(__dirname, '/../test/input/trades.json'))
     .then((totalTrades) => {
         console.timeEnd("Processing");
         console.log("Total Trades: " + totalTrades);
