@@ -39,6 +39,24 @@
                 "<node_internals>/**"
             ],
             "type": "pwa-node"
+        },
+        {
+            "name": "S-4-Listner",
+            "program": "${workspaceFolder}/solution-4/listner.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node" 
+        },
+        {
+            "name": "S-4-Reader",
+            "program": "${workspaceFolder}/solution-4/reader.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
         }
     ]
 }
