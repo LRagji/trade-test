@@ -6,7 +6,7 @@ const symbolEpochMap = new Map();
 const defaultRedisConnectionString = "redis://127.0.0.1:6379/";
 const redisClient = new redisType(defaultRedisConnectionString);
 const JSONBigIntNativeParser = require('json-bigint')({ useNativeBigInt: true });
-const barWidth = 15000000000n;
+const barWidth = 15000000000n; //In Nano seconds resolution
 const barNumberStartPoint = 1n;
 const dataHoldingTime = (barWidth / (1000000000n)) * 100n;
 const streamPublishKey = 'SINK';
@@ -90,8 +90,8 @@ const processTradeFiles = async (filePath) => {
     return totalTrades;
 }
 
-console.time("Processing");
-processTradeFiles(path.join(__dirname, '/../test/input/trades.json'))
+console.time("Processing:");
+processTradeFiles(path.join(__dirname,process.argv[2]))
     .then((totalTrades) => {
         console.timeEnd("Processing");
         console.log("Total Trades: " + totalTrades);

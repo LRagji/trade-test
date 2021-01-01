@@ -5,8 +5,8 @@
   "main": "reader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "listner": "node ./solution-4/listner.js",
-    "reader": "node ./solution-4/reader.js"
+    "listner": "node ./solution-4/listner.js /../test/output/",
+    "reader": "node ./solution-4/reader.js /../test/input/trades.json"
   },
   "repository": {
     "type": "git",

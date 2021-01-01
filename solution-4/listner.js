@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require('path');
 const JSONBigIntNativeParser = require('json-bigint')({ useNativeBigInt: true });
 const redisType = require("ioredis");
 const brokerType = require('redis-streams-broker').StreamChannelBroker;
@@ -9,7 +10,7 @@ const consumerGroupName = 'GRP1';
 const consumerName = 'CON-' + Date.now();
 const broker = new brokerType(redisClient, streamPublishKey);
 const debounceInterval = 2000;
-const debounceMessagesCount = 1000;
+const debounceMessagesCount = 2000;
 
 async function listen() {
     const consumerGroup = await broker.joinConsumerGroup(consumerGroupName);
@@ -64,7 +65,7 @@ function sinkDataToConsole(bar) {
 
 function sinkDataToFile(bar) {
     //Sinking data to File but can be sinked into WS is required.
-    fs.appendFileSync(__dirname + "/../test/output/" + bar.symbol + ".txt", JSONBigIntNativeParser.stringify(bar) + '\r\n');
+    fs.appendFileSync(path.join(__dirname,process.argv[2], (bar.symbol + ".txt")), JSONBigIntNativeParser.stringify(bar) + '\r\n');
 }
 
 listen()
